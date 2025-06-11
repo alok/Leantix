@@ -1,0 +1,13 @@
+name = "Leantix"
+version = "0.1.0"
+defaultTargets = ["leantix"]
+
+[[lean_lib]]
+name = "Leantix"
+
+[[lean_exe]]
+name = "leantix"
+root = "Main"
+
+[[lean_lib]]
+name = "Golitex"
