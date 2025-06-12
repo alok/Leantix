@@ -1,0 +1,26 @@
+repos:
+-  repo: local
+   hooks:
+   # Lean code formatter – keeps .lean files pretty-printed via `lake fmt`.
+   -  id: lean-fmt
+      name: Lean Formatter (lake fmt)
+      entry: bash -c 'lake fmt $(git diff --cached --name-only --relative | grep -E "\\.lean$" | tr "\n" " " )'
+      language: system
+      pass_filenames: false
+      always_run: true
+
+   # Build + basic linter (compilation succeeds) before commit.
+   -  id: lean-build
+      name: Lean build (lake build)
+      entry: lake build
+      language: system
+      pass_filenames: false
+      always_run: true
+
+   # Run Lean linter executable if present (stub for now).
+   -  id: golitex-lint
+      name: Golitex custom linter
+      entry: lake exe golitex-lint
+      language: system
+      pass_filenames: false
+      always_run: false
