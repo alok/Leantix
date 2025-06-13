@@ -10,6 +10,7 @@ import Golitex.Elab
 import Golitex.Backend.HTML
 import Golitex.Backend.LaTeX
 import Golitex.Backend.PDF
+import Golitex.Formal
 
 namespace Golitex
 
