@@ -3,6 +3,7 @@ import Golitex.Frontend.Scanner
 import Golitex.Frontend.Token
 import Golitex.IR
 import Golitex.Syntax
+import Golitex.Elab
 
 /--
 Golitex – Embedded Litex DSL (WIP) root module.

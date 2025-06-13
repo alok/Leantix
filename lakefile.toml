@@ -2,6 +2,7 @@ name = "Leantix"
 version = "0.1.0"
 defaultTargets = ["leantix"]
 
+
 [[lean_lib]]
 name = "Leantix"
 

@@ -36,14 +36,14 @@ macro_rules
       let raw := $str
       let tokens := Golitex.Frontend.Scanner.scan raw
       let ast := Golitex.Frontend.AST.parseTokens tokens
-      ParsedDocument.mk (IR.Document.mk raw) ast
+      ParsedDocument.mk ⟨{}, [], raw⟩ ast
     )
 
 /-- Helper function to create a parsed document from a string -/
 def parseLitex (source : String) : ParsedDocument :=
   let tokens := scan source
   let ast := parseTokens tokens
-  ParsedDocument.mk (IR.Document.mk source) ast
+  ParsedDocument.mk ⟨{}, [], source⟩ ast
 
 -- Example usage:
 -- #eval parseLitex "\\section{Introduction} This is some text."

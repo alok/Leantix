@@ -2,6 +2,8 @@ import Tests.Golitex.Frontend.TokenTest
 import Tests.Golitex.Frontend.ScannerTest
 import Tests.Golitex.Frontend.ASTTest
 import Tests.Golitex.SyntaxTest
+import Tests.Golitex.IntegrationTest
+import Tests.Golitex.PropertyTest
 
 /-!
 # Main test runner for Golitex tests
@@ -27,6 +29,14 @@ def main : IO Unit := do
   
   -- Run Syntax tests
   Golitex.SyntaxTest.main
+  IO.println ""
+  
+  -- Run Integration tests
+  Golitex.IntegrationTest.main
+  IO.println ""
+  
+  -- Run Property tests
+  Golitex.PropertyTest.main
   IO.println ""
   
   IO.println "===== All tests completed! ====="
