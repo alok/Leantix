@@ -1,3 +1,6 @@
+import Golitex.Frontend.AST
+import Golitex.Frontend.Scanner
+import Golitex.Frontend.Token
 import Golitex.IR
 import Golitex.Syntax
 

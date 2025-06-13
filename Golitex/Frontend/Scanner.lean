@@ -1,3 +1,5 @@
+import Golitex.Frontend.Token
+
 /-!
 # Golitex.Frontend.Scanner
 
@@ -26,14 +28,12 @@ text for now.  This keeps the function total without throwing e.g.
 layer, where tokens are mapped to source positions.
 -/
 
-import Golitex.Frontend.Token
-
 open Golitex.Frontend
 
 namespace Golitex.Frontend.Scanner
 
 /-
-Auxiliary predicate: Lean’s `Char.isAlpha` covers *Unicode* alphabetic
+Auxiliary predicate: Lean's `Char.isAlpha` covers *Unicode* alphabetic
 code-points which is more than we need, but that is acceptable for the
 prototype.
 -/
@@ -43,12 +43,12 @@ def isCommandChar (c : Char) : Bool := c.isAlpha
 /-- Consumes a maximal letter sequence starting at index `i` (inclusive)
 and returns the *exclusive* end index together with the extracted
 substring.  Pre-condition: `s[i]` is alphabetic. -/
-private def takeWhileAlpha (s : String) (i : Nat) : Nat × String :=
-  let rec loop (j : Nat) : Nat :=
-    if h : j < s.length then
+private partial def takeWhileAlpha (s : String) (i : String.Pos) : String.Pos × String :=
+  let rec loop (j : String.Pos) : String.Pos :=
+    if j < s.endPos then
       let c := s.get j
       if isCommandChar c then
-        loop (j + 1)
+        loop (s.next j)
       else j
     else j
   let j := loop i
@@ -58,14 +58,14 @@ private def takeWhileAlpha (s : String) (i : Nat) : Nat × String :=
 `scan src` tokenises `src` and returns an array of tokens.  The order of
 the array is the order of appearance in the source.
 -/
-def scan (src : String) : Array Token :=
-  let rec go (i : Nat) (acc : Array Token) : Array Token :=
-    if hEnd : i < src.length then
+partial def scan (src : String) : Array Token :=
+  let rec go (i : String.Pos) (acc : Array Token) : Array Token :=
+    if i < src.endPos then
       let c := src.get i
       match c with
       | '\\' =>
-          let nextIdx := i + 1
-          if nextIdx < src.length then
+          let nextIdx := src.next i
+          if nextIdx < src.endPos then
             let c2 := src.get nextIdx
             if isCommandChar c2 then
               let (j, name) := takeWhileAlpha src nextIdx
@@ -77,20 +77,20 @@ def scan (src : String) : Array Token :=
           else
             -- Lone backslash at EOF.
             acc.push (.text "\\")
-      | '{' => go (i + 1) (acc.push (.lbrace '{'))
-      | '}' => go (i + 1) (acc.push (.rbrace '}'))
+      | '{' => go (src.next i) (acc.push (.lbrace '{'))
+      | '}' => go (src.next i) (acc.push (.rbrace '}'))
       | _   =>
           -- Accumulate text until we hit sentinel char.
-          let rec collect (j : Nat) : Nat :=
-            if h : j < src.length then
+          let rec collect (j : String.Pos) : String.Pos :=
+            if j < src.endPos then
               let cj := src.get j
-              if cj == '\\' || cj == '{' || cj == '}' then j else collect (j + 1)
+              if cj == '\\' || cj == '{' || cj == '}' then j else collect (src.next j)
             else j
           let j := collect i
           let chunk := src.extract i j
           go j (acc.push (.text chunk))
     else acc
-  go 0 #[]
+  go ⟨0⟩ #[]
 
 /-- Pretty debug printer – joins tokens with `·` so visual boundaries are
 clearer. -/
@@ -98,6 +98,6 @@ def debugTokens (src : String) : String :=
   String.intercalate " · " <| (scan src).toList.map toString
 
 -- Quick unit tests (very ad-hoc until we bring in `std` test framework).
-#eval debugTokens "\\section{Hello} world"
+-- #eval debugTokens "\\section{Hello} world"
 
 end Golitex.Frontend.Scanner

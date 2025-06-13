@@ -12,6 +12,13 @@ root = "Main"
 [[lean_lib]]
 name = "Golitex"
 
+[[lean_lib]]
+name = "Tests"
+
 [[lean_exe]]
 name = "golitex-lint"
 root = "Scripts.GolitexLintMain"
+
+[[lean_exe]]
+name = "test"
+root = "Tests.Main"

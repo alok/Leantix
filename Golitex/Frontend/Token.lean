@@ -26,13 +26,13 @@ exact glyph as a `Char` solely for future extensibility (e.g. `[` /
 
 We *do not* track source locations yet – that will be added once we
 wire diagnostics into the elaborator.
-/-/
+-/
 inductive Token where
   | cmd     (name : String)   -- ^ a control sequence: `\foo`
   | lbrace  (raw : Char := '{') -- ^ opening brace
   | rbrace  (raw : Char := '}') -- ^ closing brace
   | text    (val : String)    -- ^ a run of plain text
-  deriving Repr, Inhabited
+  deriving Repr, Inhabited, BEq
 
 /-- Pretty-prints a token back to something close to its original
 lexeme.  Useful while debugging the scanner. -/
