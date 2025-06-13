@@ -15,6 +15,8 @@ lean_exe leantix where
 
 lean_lib Golitex
 
+lean_lib Examples
+
 lean_lib Tests
 
 lean_exe «golitex-lint» where
@@ -53,4 +55,8 @@ lean_exe «golitex-md4lean» where
 
 lean_exe «golitex-verso-full-docs» where
   root := `Docs.VersoFullDocs
+  supportInterpreter := true
+
+lean_exe «golitex-dsl-demo» where
+  root := `Examples.GolitexVersoDSLMain
   supportInterpreter := true
