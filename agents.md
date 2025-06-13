@@ -63,20 +63,21 @@ Deliverable: `analysis.md` with mapping table & open questions. ✅
 
 ---
 
-## 5. Rendering & Back-Ends 🚧 IN PROGRESS
+## 5. Rendering & Back-Ends ✅ COMPLETE
 
 * ~~Define a portable document IR~~ ✅ (Complete - see `Golitex.IR`)
-* Provide **PDF** back-end via `lualatex` or `tectonic`.  
-* Provide **HTML** back-end via `HTML` builder (Pure Lean ~~or external~~).  
-* Cache renders; integrate with Lake ~~`postInstall`~~ build tasks.
+* Provide **PDF** back-end via `lualatex` or `tectonic`. ✅
+* Provide **HTML** back-end via `HTML` builder (Pure Lean ~~or external~~). ✅  
+* Cache renders; integrate with Lake ~~`postInstall`~~ build tasks. ✅
 
-**Milestone M3:** _`#eval render "hello.tex"` produces PDF._
+**Milestone M3:** _`#eval render "hello.tex"` produces PDF._ ✅
 
-### Next Steps:
-- [ ] Implement `Golitex.Backend.HTML` - Pure Lean HTML generation
-- [ ] Implement `Golitex.Backend.PDF` - Call external TeX engine
-- [ ] Add Lake tasks for document compilation
-- [ ] Create render cache system
+### Completed:
+- [x] Implement `Golitex.Backend.HTML` - Pure Lean HTML generation
+- [x] Implement `Golitex.Backend.LaTeX` - LaTeX generation from IR
+- [x] Implement `Golitex.Backend.PDF` - Call external TeX engine
+- [x] Add Lake tasks for document compilation
+- [x] Create render cache system
 
 ---
 
@@ -150,9 +151,9 @@ Beyond the original plan, we've implemented:
 
 ## Current Status
 
-**Completed Phases:** 1, 2, 3, 4  
-**Completed Milestones:** M1, M2  
-**Current Phase:** 5 (Rendering & Back-Ends)  
-**Lines of Code:** ~1,500  
+**Completed Phases:** 1, 2, 3, 4, 5  
+**Completed Milestones:** M1, M2, M3  
+**Current Phase:** 6 (IDE Tooling) - Optional/Future  
+**Lines of Code:** ~2,500  
 **Test Coverage:** Comprehensive (unit, integration, property-based)  
-**Next Priority:** HTML backend implementation
+**Next Priority:** Documentation & Examples (Phase 7)
