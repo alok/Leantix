@@ -1,6 +1,5 @@
 goal: port https://github.com/litexlang/golitex to lean 4 as an embedded language hooked in with custom elaborators.
 
-
 you can modify the syntax in small ways to avoid confusion with lean 4 (like dollar signs and antiquotations).
 
 plan: ./agents.md
