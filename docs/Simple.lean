@@ -1,0 +1,246 @@
+import Golitex
+
+/-!
+# Simple Documentation Generator
+
+A simplified documentation generator for Golitex that creates HTML documentation
+without full Verso integration.
+-/
+
+namespace GolitexDocs.Simple
+
+open Golitex
+open Golitex.Backend.HTML
+
+/-- Generate documentation HTML -/
+def generateDocs : String :=
+  let style := "
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      color: #333;
+    }
+    h1, h2, h3, h4 { margin-top: 2rem; margin-bottom: 1rem; }
+    h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 0.5rem; }
+    h2 { color: #34495e; }
+    code {
+      background: #f4f4f4;
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 1em;
+      border-radius: 5px;
+      overflow-x: auto;
+      border: 1px solid #ddd;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+    }
+    .example {
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+    .api-section {
+      margin: 2rem 0;
+      padding: 1rem;
+      border-left: 3px solid #3498db;
+      background: #f8f9fa;
+    }
+    nav {
+      background: #2c3e50;
+      color: white;
+      padding: 1rem;
+      margin: -2rem -2rem 2rem -2rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-right: 2rem;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+  "
+  
+  "<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>Golitex Documentation</title>
+    <style>" ++ style ++ "</style>
+</head>
+<body>
+    <nav>
+        <a href=\"#overview\">Overview</a>
+        <a href=\"#getting-started\">Getting Started</a>
+        <a href=\"#syntax\">Syntax</a>
+        <a href=\"#api\">API Reference</a>
+        <a href=\"#examples\">Examples</a>
+    </nav>
+
+    <h1>Golitex Documentation</h1>
+    
+    <section id=\"overview\">
+        <h2>Overview</h2>
+        <p>Golitex is a LaTeX-like domain-specific language (DSL) for Lean 4. It allows you to write mathematical documents, papers, and books directly within the Lean ecosystem.</p>
+        
+        <h3>Features</h3>
+        <ul>
+            <li>Familiar LaTeX-like syntax</li>
+            <li>Integration with Lean's type system</li>
+            <li>Multiple output backends (HTML, PDF planned)</li>
+            <li>Extensible through Lean's metaprogramming</li>
+        </ul>
+    </section>
+
+    <section id=\"getting-started\">
+        <h2>Getting Started</h2>
+        
+        <h3>Installation</h3>
+        <p>Add Golitex to your Lean 4 project's <code>lakefile.lean</code>:</p>
+        <pre><code>require golitex from git
+  \"https://github.com/yourusername/golitex.git\"</code></pre>
+        
+        <h3>Basic Usage</h3>
+        <div class=\"example\">
+            <h4>Example: Hello World</h4>
+            <pre><code>import Golitex
+
+def myDoc := litex! \"
+\\\\section{Hello, World!}
+
+This is my first Golitex document.
+It supports \\\\emph{emphasis} and \\\\textbf{bold} text.
+\"
+
+-- Convert to HTML
+#eval
+  let tokens := scan myDoc.raw
+  let ast := parseTokens tokens
+  let (doc, _) := elaborate ast
+  renderDocument doc</code></pre>
+        </div>
+    </section>
+
+    <section id=\"syntax\">
+        <h2>Syntax Reference</h2>
+        
+        <h3>Commands</h3>
+        <table>
+            <tr><th>Command</th><th>Description</th><th>Example</th></tr>
+            <tr><td><code>\\\\section{...}</code></td><td>Section heading</td><td><code>\\\\section{Introduction}</code></td></tr>
+            <tr><td><code>\\\\subsection{...}</code></td><td>Subsection heading</td><td><code>\\\\subsection{Details}</code></td></tr>
+            <tr><td><code>\\\\emph{...}</code></td><td>Emphasized text</td><td><code>\\\\emph{important}</code></td></tr>
+            <tr><td><code>\\\\textbf{...}</code></td><td>Bold text</td><td><code>\\\\textbf{bold}</code></td></tr>
+            <tr><td><code>\\\\textit{...}</code></td><td>Italic text</td><td><code>\\\\textit{italic}</code></td></tr>
+            <tr><td><code>\\\\texttt{...}</code></td><td>Monospace text</td><td><code>\\\\texttt{code}</code></td></tr>
+        </table>
+        
+        <h3>Environments</h3>
+        <pre><code>\\\\begin{itemize}
+\\\\item First item
+\\\\item Second item
+\\\\end{itemize}
+
+\\\\begin{verbatim}
+Preformatted text
+\\\\end{verbatim}</code></pre>
+    </section>
+
+    <section id=\"api\">
+        <h2>API Reference</h2>
+        
+        <div class=\"api-section\">
+            <h3>Frontend API</h3>
+            
+            <h4><code>scan : String → Array Token</code></h4>
+            <p>Tokenizes LaTeX source into tokens.</p>
+            
+            <h4><code>parseTokens : Array Token → Node</code></h4>
+            <p>Parses tokens into an abstract syntax tree.</p>
+        </div>
+        
+        <div class=\"api-section\">
+            <h3>Elaboration API</h3>
+            
+            <h4><code>elaborate : Node → (Document × List String)</code></h4>
+            <p>Converts AST to semantic IR, returning document and errors.</p>
+        </div>
+        
+        <div class=\"api-section\">
+            <h3>Backend API</h3>
+            
+            <h4><code>renderDocument : Document → RenderOptions → String</code></h4>
+            <p>Renders a document to HTML with given options.</p>
+            
+            <h4><code>renderToFile : Document → System.FilePath → RenderOptions → IO Unit</code></h4>
+            <p>Renders a document directly to an HTML file.</p>
+        </div>
+    </section>
+
+    <section id=\"examples\">
+        <h2>Examples</h2>
+        
+        <div class=\"example\">
+            <h4>Mathematical Document</h4>
+            <pre><code>def mathDoc := litex! \"
+\\\\section{Pythagorean Theorem}
+
+The Pythagorean theorem states that in a right triangle,
+the square of the hypotenuse \\\\emph{c} equals the sum of
+squares of the other two sides \\\\emph{a} and \\\\emph{b}:
+
+$$a^2 + b^2 = c^2$$
+
+\\\\subsection{Proof}
+Consider a right triangle with sides...
+\"</code></pre>
+        </div>
+        
+        <div class=\"example\">
+            <h4>Custom Styling</h4>
+            <pre><code>let options : RenderOptions := {
+  title := \"My Custom Document\"
+  customCss := \"
+    body { font-family: Georgia, serif; }
+    h1 { color: navy; }
+  \"
+}
+
+let html := renderDocument doc options</code></pre>
+        </div>
+    </section>
+
+    <footer style=\"margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #ddd; text-align: center; color: #666;\">
+        <p>Golitex Documentation - Generated with Golitex v0.1.0</p>
+    </footer>
+</body>
+</html>"
+
+/-- Main function to generate documentation -/
+def main (args : List String) : IO UInt32 := do
+  let outputDir : System.FilePath := "_out/docs"
+  IO.FS.createDirAll outputDir
+  
+  let indexPath := outputDir / "index.html"
+  IO.FS.writeFile indexPath generateDocs
+  
+  IO.println s!"Documentation generated at: {indexPath}"
+  IO.println "Open the file in a web browser to view the documentation."
+  return 0
+
+end GolitexDocs.Simple
+
+-- Entry point for the executable
+def main : IO UInt32 := GolitexDocs.Simple.main []
