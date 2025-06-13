@@ -4,6 +4,7 @@ import Tests.Golitex.Frontend.ASTTest
 import Tests.Golitex.SyntaxTest
 import Tests.Golitex.IntegrationTest
 import Tests.Golitex.PropertyTest
+import Tests.Golitex.Backend.HTMLTest
 
 /-!
 # Main test runner for Golitex tests
@@ -37,6 +38,10 @@ def main : IO Unit := do
   
   -- Run Property tests
   Golitex.PropertyTest.main
+  IO.println ""
+  
+  -- Run HTML Backend tests
+  Golitex.Backend.HTMLTest.main
   IO.println ""
   
   IO.println "===== All tests completed! ====="
