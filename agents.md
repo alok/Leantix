@@ -4,6 +4,8 @@
 
 This document outlines the phased approach for **porting [`golitex`](https://github.com/litexlang/golitex) to Lean 4** as a fully-embedded domain-specific language (DSL) with custom elaborators, along with supporting tooling.
 
+**Primary Goal:** Port the formal reasoning language capabilities of golitex into Lean 4, enabling formal verification and proof capabilities within the literate programming framework.
+
 ---
 
 ## 0. Vision
@@ -122,18 +124,36 @@ Deliverable: `analysis.md` with mapping table & open questions. ✅
 
 ---
 
-## 9. Stretch Goals 🎯 FUTURE
+## 9. Formal Reasoning Language Integration 🧮 HIGH PRIORITY
+
+* Port golitex's formal reasoning capabilities to Lean 4
+* Enable inline proofs and theorem statements within litex documents
+* Integrate with Lean's proof checking infrastructure
+* Support for mathematical notation with formal semantics
+* Provide bridge between informal mathematical text and formal proofs
+* Allow extraction of formal specifications from documentation
+
+### Key Components:
+- [ ] Formal language parser integrated with litex syntax
+- [ ] Proof environment elaboration to Lean terms
+- [ ] Bidirectional translation between LaTeX math and Lean expressions
+- [ ] Verification of inline assertions and properties
+- [ ] Integration with mathlib4 theorems and tactics
+
+---
+
+## 10. Stretch Goals 🎯 FUTURE
 
 * Live preview in VSCode via `webview`.  
 * Parallel compilation of documents.  
 * Citation manager integration.
 * BibTeX support
 * Custom package system
-* Integration with mathlib4 for mathematical content
+* Advanced mathlib4 integration for mathematical content
 
 ---
 
-## 10. Additional Achievements 🎉 BONUS
+## 11. Additional Achievements 🎉 BONUS
 
 Beyond the original plan, we've implemented:
 - Comprehensive test suite with 100% pass rate
