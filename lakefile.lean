@@ -34,3 +34,23 @@ lean_exe «golitex-verso-docs» where
 lean_exe «golitex-verso-full» where
   root := `Docs.VersoIntegration
   supportInterpreter := true
+
+lean_exe «golitex-verso-simple» where
+  root := `Docs.VersoSimple
+  supportInterpreter := true
+
+lean_exe «golitex-verso-working» where
+  root := `Docs.VersoWorkingSimple
+  supportInterpreter := true
+
+lean_exe «golitex-verso-advanced» where
+  root := `Docs.VersoAdvanced
+  supportInterpreter := true
+
+lean_exe «golitex-md4lean» where
+  root := `Docs.MD4LeanIntegration
+  supportInterpreter := true
+
+lean_exe «golitex-verso-full-docs» where
+  root := `Docs.VersoFullDocs
+  supportInterpreter := true
