@@ -8,6 +8,8 @@ import Golitex.IR
 import Golitex.Syntax
 import Golitex.Elab
 import Golitex.Backend.HTML
+import Golitex.Backend.LaTeX
+import Golitex.Backend.PDF
 
 namespace Golitex
 

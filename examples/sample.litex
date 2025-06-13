@@ -1,0 +1,37 @@
+\documentclass{article}
+
+\begin{document}
+
+\section{Introduction}
+
+This is a sample Golitex document demonstrating the LaTeX-like DSL embedded in Lean 4.
+
+\subsection{Features}
+
+Golitex supports:
+\begin{itemize}
+\item \textbf{Text formatting}: \emph{emphasis}, \textbf{bold}, \texttt{monospace}
+\item Mathematical expressions: $E = mc^2$
+\item Display math: $$\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}$$
+\end{itemize}
+
+\section{Mathematics}
+
+The quadratic formula is given by:
+$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+
+\begin{theorem}
+For any prime $p$ and integer $a$ not divisible by $p$:
+$$a^{p-1} \equiv 1 \pmod{p}$$
+\end{theorem}
+
+\begin{proof}
+Consider the set $\{a, 2a, 3a, \ldots, (p-1)a\}$ modulo $p$.
+Since $\gcd(a, p) = 1$, these are all distinct and non-zero modulo $p$.
+\end{proof}
+
+\section{Conclusion}
+
+This demonstrates the core features of Golitex as an embedded DSL in Lean 4.
+
+\end{document}
